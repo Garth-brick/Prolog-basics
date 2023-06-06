@@ -15,11 +15,12 @@ partition([H|Tail], X, [H|Left], Right) :-
 partition([H|Tail], X, Left, [H|Right]) :-
     H > X,
     partition(Tail, X, Left, Right).
+partition([], _, [], []).
 
 
-quicksort([], []).
 quicksort([X|Tail], R) :-
     partition(Tail, X, Left, Right),
     quicksort(Left, R_left),
     quicksort(Right, R_right),
-    list_append(R_left, R_right, R).
+    list_append(R_left, [X|R_right], R).
+quicksort([], []).
